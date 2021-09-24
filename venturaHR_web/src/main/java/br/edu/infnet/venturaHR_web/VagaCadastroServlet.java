@@ -1,6 +1,8 @@
 package br.edu.infnet.venturaHR_web;
 
 import br.edu.infnet.venturaHR_web.model.domain.CriteriosVaga;
+import br.edu.infnet.venturaHR_web.model.domain.Empresa;
+import br.edu.infnet.venturaHR_web.model.domain.Usuario;
 import br.edu.infnet.venturaHR_web.model.domain.Vaga;
 import br.edu.infnet.venturaHR_web.model.domain.enumerations.FormaContratacao;
 import br.edu.infnet.venturaHR_web.model.domain.enumerations.PMD;
@@ -8,6 +10,7 @@ import br.edu.infnet.venturaHR_web.model.domain.enumerations.StatusVaga;
 import br.edu.infnet.venturaHR_web.model.exceptions.ErroBuscaVagasException;
 import br.edu.infnet.venturaHR_web.model.exceptions.ErroCadastroException;
 import br.edu.infnet.venturaHR_web.model.service.VagaCadastroService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -28,6 +31,17 @@ public class VagaCadastroServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Vaga vaga = criarVagaAPartirDaRequisicao(req);
+        Usuario usuario = (Usuario) req.getSession().getAttribute("user");
+        Empresa empresa = new Empresa();
+        empresa.setId(usuario.getId());
+        empresa.setNome(usuario.getNome());
+        empresa.setEmail(usuario.getEmail());
+//        empresa.setCnpj(usuario.get());
+//        empresa.setRazaoSocial(usuario.getId());
+        empresa.setTipoConta(usuario.getTipoConta());
+        empresa.setStatusUsuario(usuario.getStatusUsuario());
+
+        vaga.setUsuarioEmpresa(empresa);
         VagaCadastroService vagaCadastroService = new VagaCadastroService();
 
         try {

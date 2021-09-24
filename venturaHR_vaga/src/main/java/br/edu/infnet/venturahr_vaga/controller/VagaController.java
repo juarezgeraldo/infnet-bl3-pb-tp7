@@ -1,12 +1,14 @@
-package br.edu.infnet.venturaHR_empresa.controller;
+package br.edu.infnet.venturahr_vaga.controller;
 
-import br.edu.infnet.venturaHR_empresa.model.domain.Empresa;
-import br.edu.infnet.venturaHR_empresa.model.domain.Vaga;
-import br.edu.infnet.venturaHR_empresa.model.exception.StatusInvalidoException;
-import br.edu.infnet.venturaHR_empresa.model.exception.VagaNaoEncontradaException;
-import br.edu.infnet.venturaHR_empresa.model.service.VagaService;
+import br.edu.infnet.venturahr_vaga.model.domain.Empresa;
+import br.edu.infnet.venturahr_vaga.model.domain.Vaga;
+import br.edu.infnet.venturahr_vaga.model.exception.StatusInvalidoException;
+import br.edu.infnet.venturahr_vaga.model.exception.VagaNaoEncontradaException;
+import br.edu.infnet.venturahr_vaga.model.service.VagaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,8 +21,8 @@ public class VagaController {
     @Autowired
     private VagaService vagaService;
 
-    @PostMapping
-    public Vaga cadastrar(@RequestBody Vaga vaga) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Vaga cadastrar(Vaga vaga) {
         try {
             return vagaService.incluir(vaga);
         }

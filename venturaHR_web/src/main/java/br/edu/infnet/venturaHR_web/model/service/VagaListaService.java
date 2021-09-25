@@ -25,7 +25,9 @@ public class VagaListaService {
                 .request().get();
 
         if (response.getStatus() == 200) {
-            return response.readEntity(new GenericType<List<Vaga>>() {});
+            return response.readEntity(new GenericType<List<Vaga>>() {
+
+            });
         }
         else {
             throw new ErroAutenticacaoException("Usuário ou senha inválidos.");

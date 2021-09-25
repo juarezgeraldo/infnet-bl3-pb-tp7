@@ -2,11 +2,10 @@ package br.edu.infnet.venturahr_vaga.model.domain;
 
 import br.edu.infnet.venturahr_vaga.model.domain.enumerations.FormaContratacao;
 import br.edu.infnet.venturahr_vaga.model.domain.enumerations.StatusVaga;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,8 +14,8 @@ public class Vaga {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate dataInicio;
-    private LocalDate dataFinal;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFinal;
     @ManyToOne
     private Empresa usuarioEmpresa;
     @Column(nullable = false)
@@ -31,7 +30,6 @@ public class Vaga {
     private StatusVaga statusVaga;
     @OneToMany(mappedBy = "vaga")
     @JsonManagedReference
-    @JsonIgnoreProperties("criteriosVagaList")
     private List<CriteriosVaga> criteriosVagaList;
 
     public Vaga() {
@@ -45,19 +43,19 @@ public class Vaga {
         this.id = id;
     }
 
-    public LocalDate getDataInicio() {
+    public LocalDateTime getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDate dataInicio) {
+    public void setDataInicio(LocalDateTime dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDate getDataFinal() {
+    public LocalDateTime getDataFinal() {
         return dataFinal;
     }
 
-    public void setDataFinal(LocalDate dataFinal) {
+    public void setDataFinal(LocalDateTime dataFinal) {
         this.dataFinal = dataFinal;
     }
 

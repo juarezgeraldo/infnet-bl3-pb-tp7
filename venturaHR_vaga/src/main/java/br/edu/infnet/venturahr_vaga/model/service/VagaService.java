@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,8 +27,9 @@ public class VagaService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Vaga incluir(Vaga vaga){
-        vaga.setDataInicio(LocalDate.now());
+    public Vaga incluir(Vaga vaga) {
+        vaga.setDataInicio(LocalDateTime.now());
+        vaga.setDataFinal(LocalDateTime.now());
         vaga.setStatusVaga(StatusVaga.ABERTA);
         vaga.setPmdCalculado(calculaPmd(vaga));
         Vaga vagaSalva = vagaRepository.save(vaga);
@@ -44,10 +46,13 @@ public class VagaService {
 
         for (CriteriosVaga criteriosVaga : vaga.getCriteriosVagaList()) {
             somaPesos += criteriosVaga.getPeso();
-            numerador += criteriosVaga.getPmd().getValor() *  criteriosVaga.getPeso();
+            numerador += criteriosVaga.getPmd().getValor() * criteriosVaga.getPeso();
         }
-
-        return (numerador / somaPesos);
+        if (somaPesos == 0) {
+            return 0.0F;
+        } else {
+            return (numerador / somaPesos);
+        }
     }
 
     public Vaga findById(Long id) {

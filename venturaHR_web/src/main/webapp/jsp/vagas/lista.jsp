@@ -14,9 +14,9 @@
     <%--							Incluir--%>
     <%--						</a>--%>
 
-    <form action="${pageContext.request.contextPath}/vaga-cadastro" method="GET">
-        <button type="submit" class="btn btn-link">Incluir</button>
-    </form>
+<%--    <form action="${pageContext.request.contextPath}/vaga-cadastro" method="GET">--%>
+<%--        <button type="submit" class="btn btn-link">Incluir</button>--%>
+<%--    </form>--%>
     <hr>
 
     <c:if test="${not empty lista}">
@@ -40,8 +40,6 @@
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Início</th>
-                <th>Final</th>
                 <th>Título</th>
                 <th>Contratação</th>
                 <th>PMD Vaga</th>
@@ -53,8 +51,6 @@
             <c:forEach var="a" items="${lista}">
                 <tr>
                     <td>${a.id}</td>
-                    <td>${a.dataInicio}</td>
-                    <td>${a.dataFinal}</td>
                     <td>${a.titulo}</td>
                     <td>${a.formaContratacao}</td>
                     <td>${a.pmdCalculado}</td>

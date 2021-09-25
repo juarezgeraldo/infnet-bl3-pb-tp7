@@ -18,7 +18,6 @@ public class CriteriosVaga {
     @ManyToOne
     @JoinColumn(name="idVaga")
     @JsonBackReference
-    @JsonIgnore
     private Vaga vaga;
 
     public CriteriosVaga() {

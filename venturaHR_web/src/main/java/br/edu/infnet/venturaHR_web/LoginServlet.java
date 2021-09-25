@@ -1,6 +1,7 @@
 package br.edu.infnet.venturaHR_web;
 
 import br.edu.infnet.venturaHR_web.model.domain.Usuario;
+import br.edu.infnet.venturaHR_web.model.domain.enumerations.FormaContratacao;
 import br.edu.infnet.venturaHR_web.model.domain.enumerations.TipoConta;
 import br.edu.infnet.venturaHR_web.model.exceptions.ErroAutenticacaoException;
 import br.edu.infnet.venturaHR_web.model.service.LoginService;
@@ -13,8 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
-@SessionAttributes("user")
+@SessionAttributes({"user", "formaContratacao"})
 @WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
 
@@ -38,20 +40,18 @@ public class LoginServlet extends HttpServlet {
 
         try {
             Usuario usuarioLogado = loginService.login(autenticar);
+            ArrayList<String> formaContratacao = new ArrayList<>();
+            formaContratacao.add(FormaContratacao.CLT.getDescricao());
+            formaContratacao.add(FormaContratacao.PJ.getDescricao());
+            formaContratacao.add(FormaContratacao.COOPERADO.getDescricao());
 
-            String url = null;
+            String url = "/jsp/index.jsp";
             req.getSession().setAttribute("user", usuarioLogado);
-            if(usuarioLogado.getTipoConta().getDescricao() == TipoConta.EMPRESA.getDescricao()) {
-                url = "/jsp/vagas/cadastro.jsp";
-                req.getSession().setAttribute("userId", usuarioLogado);
-            }
-            if(usuarioLogado.getTipoConta().getDescricao() == TipoConta.CANDIDATO.getDescricao()) { url = "/jsp/candidato/lista.jsp";}
-            if(usuarioLogado.getTipoConta().getDescricao() == TipoConta.ADMIN.getDescricao()) { url = "/jsp/admin/lista.jsp";}
+            req.getSession().setAttribute("formaContratacao", formaContratacao);
 
             RequestDispatcher requestDispatcher = req.getRequestDispatcher(url);
             requestDispatcher.forward(req, resp);
-        }
-        catch(ErroAutenticacaoException ex) {
+        } catch (ErroAutenticacaoException ex) {
             req.setAttribute("mensagem_NOK", ex.getMessage());
             req.setAttribute("usuarioLogado", false);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/jsp/login");

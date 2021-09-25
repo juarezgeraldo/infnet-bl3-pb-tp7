@@ -22,26 +22,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-@WebServlet(name = "VagaCadastroServlet", value = "/vaga-cadastro")
+@WebServlet(name = "VagaCadastroServlet", value = "/vaga-inclui")
 public class VagaCadastroServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Vaga vaga = criarVagaAPartirDaRequisicao(req);
-        Usuario usuario = (Usuario) req.getSession().getAttribute("user");
-        Empresa empresa = new Empresa();
-        empresa.setId(usuario.getId());
-        empresa.setNome(usuario.getNome());
-        empresa.setEmail(usuario.getEmail());
-//        empresa.setCnpj(usuario.get());
-//        empresa.setRazaoSocial(usuario.getId());
-        empresa.setTipoConta(usuario.getTipoConta());
-        empresa.setStatusUsuario(usuario.getStatusUsuario());
-
-        vaga.setUsuarioEmpresa(empresa);
         VagaCadastroService vagaCadastroService = new VagaCadastroService();
 
         try {
@@ -59,9 +50,7 @@ public class VagaCadastroServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException {
-
-        req.setAttribute("user", req.getAttribute("user"));
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/jsp/vagas/cadastro.jsp");
         requestDispatcher.forward(req, resp);
     }
@@ -69,24 +58,47 @@ public class VagaCadastroServlet extends HttpServlet {
     private Vaga criarVagaAPartirDaRequisicao(HttpServletRequest req) {
         Vaga vaga = new Vaga();
 //        Empresa empresa = new Empresa();
-        vaga.setDataInicio(LocalDate.parse(req.getParameter("dataInicio")));
-        vaga.setDataFinal(LocalDate.parse(req.getParameter("dataFinal")));
-//        vaga.setUsuarioEmpresa(req.getParameter("usuarioEmpresa"));
+//        vaga.setFormaContratacao(req.getParameter("formaContratacao"));
         vaga.setTitulo(req.getParameter("titulo"));
         vaga.setDescricao(req.getParameter("descricao"));
-        vaga.setFormaContratacao(FormaContratacao.CLT);
-//        vaga.setFormaContratacao(FormaContratacao.forValue(req.getParameter("formaContratacao")));
         vaga.setBairro(req.getParameter("bairro"));
         vaga.setCidade(req.getParameter("cidade"));
         vaga.setEstado(req.getParameter("estado"));
-        vaga.setStatusVaga(StatusVaga.ABERTA);
-        CriteriosVaga criteriosVaga = new CriteriosVaga();
+
+        vaga.setFormaContratacao(FormaContratacao.valueOf(req.getParameter("formaContratacao")));
+
+        Usuario usuario = (Usuario) req.getSession().getAttribute("user");
+        Empresa empresa = new Empresa();
+        empresa.setId(usuario.getId());
+        vaga.setUsuarioEmpresa(empresa);
+
         List<CriteriosVaga> criteriosVagaList = new ArrayList<>();
-//        criteriosVaga.setVaga(vaga);
-        criteriosVaga.setDescricao("descricao criterio");
-        criteriosVaga.setPeso(3);
-        criteriosVaga.setPmd(PMD.DESEJAVEL);
-        criteriosVagaList.add(criteriosVaga);
+
+        Map<String, String[]> parameters = req.getParameterMap();
+
+        String[] descricoes = null;
+        String[] pmds = null;
+        String[] pesos = null;
+
+        for (Map.Entry<String, String[]> criterio : parameters.entrySet()) {
+            if (criterio.getKey().contains("criteriosVaga.descricao")) {
+                descricoes = criterio.getValue();
+            } else if (criterio.getKey().contains("criteriosVaga.pmd")) {
+                pmds = criterio.getValue();
+            } else if (criterio.getKey().contains("criteriosVaga.peso")) {
+                pesos = criterio.getValue();
+            }
+        }
+
+        if (descricoes != null && pmds != null && pesos != null) {
+            for (int i = 0; i < descricoes.length; i++) {
+                CriteriosVaga novoCriterio = new CriteriosVaga();
+                novoCriterio.setDescricao(descricoes[i]);
+                novoCriterio.setPmd(PMD.valueOf(pmds[i]));
+                novoCriterio.setPeso(Integer.parseInt(pesos[i]));
+                criteriosVagaList.add(novoCriterio);
+            }
+        }
         vaga.setCriteriosVagaList(criteriosVagaList);
         return vaga;
     }

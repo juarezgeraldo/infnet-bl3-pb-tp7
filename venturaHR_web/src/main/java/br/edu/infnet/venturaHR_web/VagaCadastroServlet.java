@@ -6,12 +6,8 @@ import br.edu.infnet.venturaHR_web.model.domain.Usuario;
 import br.edu.infnet.venturaHR_web.model.domain.Vaga;
 import br.edu.infnet.venturaHR_web.model.domain.enumerations.FormaContratacao;
 import br.edu.infnet.venturaHR_web.model.domain.enumerations.PMD;
-import br.edu.infnet.venturaHR_web.model.domain.enumerations.StatusVaga;
-import br.edu.infnet.venturaHR_web.model.exceptions.ErroBuscaVagasException;
 import br.edu.infnet.venturaHR_web.model.exceptions.ErroCadastroException;
 import br.edu.infnet.venturaHR_web.model.service.VagaCadastroService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.RequestDispatcher;
@@ -21,8 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +26,7 @@ public class VagaCadastroServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Vaga vaga = criarVagaAPartirDaRequisicao(req);
+        Vaga vaga = montaVaga(req);
         VagaCadastroService vagaCadastroService = new VagaCadastroService();
 
         try {
@@ -49,16 +43,8 @@ public class VagaCadastroServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/jsp/vagas/cadastro.jsp");
-        requestDispatcher.forward(req, resp);
-    }
-
-    private Vaga criarVagaAPartirDaRequisicao(HttpServletRequest req) {
+    private Vaga montaVaga(HttpServletRequest req) {
         Vaga vaga = new Vaga();
-//        Empresa empresa = new Empresa();
-//        vaga.setFormaContratacao(req.getParameter("formaContratacao"));
         vaga.setTitulo(req.getParameter("titulo"));
         vaga.setDescricao(req.getParameter("descricao"));
         vaga.setBairro(req.getParameter("bairro"));

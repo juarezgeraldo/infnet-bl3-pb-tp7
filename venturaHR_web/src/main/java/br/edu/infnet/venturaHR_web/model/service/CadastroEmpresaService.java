@@ -4,7 +4,6 @@ import br.edu.infnet.venturaHR_web.model.domain.Empresa;
 import br.edu.infnet.venturaHR_web.model.domain.Erro;
 import br.edu.infnet.venturaHR_web.model.domain.ErroValidacao;
 import br.edu.infnet.venturaHR_web.model.exceptions.ErroCadastroException;
-import br.edu.infnet.venturaHR_web.model.utils.ValidaCpfCnpj;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;

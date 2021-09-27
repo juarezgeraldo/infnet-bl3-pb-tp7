@@ -4,7 +4,6 @@ import br.edu.infnet.venturaHR_usuarios.model.domain.Candidato;
 import br.edu.infnet.venturaHR_usuarios.model.domain.enumerations.StatusUsuario;
 import br.edu.infnet.venturaHR_usuarios.model.domain.enumerations.TipoConta;
 import br.edu.infnet.venturaHR_usuarios.model.exception.CpfCnpjJaExiste;
-import br.edu.infnet.venturaHR_usuarios.model.exception.UsuarioJaExiste;
 import br.edu.infnet.venturaHR_usuarios.model.exception.UsuarioNaoExiste;
 import br.edu.infnet.venturaHR_usuarios.model.repository.CandidatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

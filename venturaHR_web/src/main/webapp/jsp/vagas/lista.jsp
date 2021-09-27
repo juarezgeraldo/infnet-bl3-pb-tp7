@@ -44,7 +44,7 @@
                 <th>Contratação</th>
                 <th>PMD Vaga</th>
                 <th>Status</th>
-                <th>Ação</th>
+<%--                <th>Ação</th>--%>
             </tr>
             </thead>
             <tbody>
@@ -55,13 +55,16 @@
                     <td>${a.formaContratacao}</td>
                     <td>${a.pmdCalculado}</td>
                     <td style="text-align:center">${a.statusVaga}</td>
-                    <td style="text-align:center">
-                        <a href="/vagas/${a.id}/excluir">Excluir</a>
-                        <form action="${pageContext.request.contextPath}/cadastro-vaga"
-                              method="DELETE">
-                            <button type="submit" class="btn btn-link">Excluir</button>
-                        </form>
-                    </td>
+<%--                    <td style="text-align:center">--%>
+<%--                        <form action="${pageContext.request.contextPath}/vaga-altera"--%>
+<%--                              method="POST">--%>
+<%--                            <button type="submit" class="btn btn-link">Alterar</button>--%>
+<%--                        </form>--%>
+<%--                        <form action="${pageContext.request.contextPath}/vaga-exclui"--%>
+<%--                              method="POST">--%>
+<%--                            <button type="submit" class="btn btn-link">Excluir</button>--%>
+<%--                        </form>--%>
+<%--                    </td>--%>
                 </tr>
             </c:forEach>
             </tbody>

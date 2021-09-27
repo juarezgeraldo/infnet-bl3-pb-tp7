@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
@@ -14,8 +13,8 @@ import java.util.List;
 @Data
 public class Vaga {
     private Long id;
-    private LocalDateTime dataInicio;
-    private LocalDateTime dataFinal;
+    private String dataInicio;
+    private String dataFinal;
     private Empresa usuarioEmpresa;
     private String titulo;
     private String descricao;
@@ -35,19 +34,19 @@ public class Vaga {
         this.id = id;
     }
 
-    public LocalDateTime getDataInicio() {
+    public String getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDateTime dataInicio) {
+    public void setDataInicio(String dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDateTime getDataFinal() {
+    public String getDataFinal() {
         return dataFinal;
     }
 
-    public void setDataFinal(LocalDateTime dataFinal) {
+    public void setDataFinal(String dataFinal) {
         this.dataFinal = dataFinal;
     }
 

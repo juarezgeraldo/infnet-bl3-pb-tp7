@@ -60,7 +60,7 @@
                 </li>
             </c:if>
             <c:if test="${not empty user}">
-                <form action="${pageContext.request.contextPath}/logout" method="GET">
+                <form action="${pageContext.request.contextPath}/sair" method="GET">
                     <button type="submit" class="btn btn-link">
                         <span class="glyphicon glyphicon-log-out"></span>
                         Finalizar, ${user.nome}!

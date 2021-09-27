@@ -2,7 +2,6 @@ package br.edu.infnet.venturahr_vaga.model.domain;
 
 import br.edu.infnet.venturahr_vaga.model.domain.enumerations.PMD;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 

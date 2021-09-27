@@ -1,15 +1,8 @@
 package br.edu.infnet.venturaHR_web;
 
-import br.edu.infnet.venturaHR_web.model.domain.CriteriosVaga;
 import br.edu.infnet.venturaHR_web.model.domain.Vaga;
-import br.edu.infnet.venturaHR_web.model.domain.enumerations.FormaContratacao;
-import br.edu.infnet.venturaHR_web.model.domain.enumerations.PMD;
-import br.edu.infnet.venturaHR_web.model.domain.enumerations.StatusVaga;
 import br.edu.infnet.venturaHR_web.model.exceptions.ErroAutenticacaoException;
-import br.edu.infnet.venturaHR_web.model.exceptions.ErroBuscaVagasException;
-import br.edu.infnet.venturaHR_web.model.exceptions.ErroCadastroException;
 import br.edu.infnet.venturaHR_web.model.service.VagaListaService;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "VagaListaServlet", value = "/vaga-lista")

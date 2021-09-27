@@ -6,9 +6,6 @@ import br.edu.infnet.venturaHR_autenticacao.model.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 @Service
 public class UsuarioService {
 

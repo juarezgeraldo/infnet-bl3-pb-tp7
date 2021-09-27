@@ -2,7 +2,6 @@ package br.edu.infnet.venturaHR_web;
 
 import br.edu.infnet.venturaHR_web.model.domain.Usuario;
 import br.edu.infnet.venturaHR_web.model.domain.enumerations.FormaContratacao;
-import br.edu.infnet.venturaHR_web.model.domain.enumerations.TipoConta;
 import br.edu.infnet.venturaHR_web.model.exceptions.ErroAutenticacaoException;
 import br.edu.infnet.venturaHR_web.model.service.LoginService;
 import org.springframework.web.bind.annotation.SessionAttributes;

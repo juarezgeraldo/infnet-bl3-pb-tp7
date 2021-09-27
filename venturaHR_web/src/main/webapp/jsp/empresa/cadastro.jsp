@@ -19,27 +19,27 @@
 				<form action="${pageContext.request.contextPath}/cadastro-empresa" method="post" class="user">
 					<div class="form-group">
 						<label>Nome Usuário:</label>
-						<input type="text" class="form-control" placeholder="Entre com o nome do usuário da Empresa" name="nome" value="${user.nome}">
+						<input type="text" class="form-control" placeholder="Entre com o nome do usuário da Empresa" name="nome" value="${usuario.nome}">
 					</div>
 
 					<div class="form-group">
 						<label>E-mail:</label>
-						<input type="email" class="form-control" name="email" value="${user.email}">
+						<input type="email" class="form-control" name="email" value="${usuario.email}">
 					</div>
 
 					<div class="form-group">
 						<label>Senha:</label>
-						<input type="password" class="form-control" name="senha" value="${user.senha}">
+						<input type="password" class="form-control" name="senha" value="${usuario.senha}">
 					</div>
 
 					<div class="form-group">
 						<label>CNPJ:</label>
-						<input type="text" class="form-control" name="cnpj" value="${user.cnpj}">
+						<input type="text" class="form-control" name="cnpj" value="${usuario.cnpj}">
 					</div>
 
 					<div class="form-group">
 						<label>Razão Social:</label>
-						<input type="text" class="form-control" name="razaoSocial" value="${user.razaoSocial}">
+						<input type="text" class="form-control" name="razaoSocial" value="${usuario.razaoSocial}">
 					</div>
 
 					<button type="submit" class="btn btn-default">Cadastrar</button>

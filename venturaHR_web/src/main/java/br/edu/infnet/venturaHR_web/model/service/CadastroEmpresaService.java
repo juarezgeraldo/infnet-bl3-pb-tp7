@@ -17,27 +17,28 @@ public class CadastroEmpresaService {
     private final Client client = ClientBuilder.newClient();
 
     public void cadastro(Empresa empresa) throws ErroCadastroException {
-        StringBuilder mensagem = new StringBuilder();
+        StringBuilder mensagem_NOK = new StringBuilder();
         if (empresa.getNome().length() <= 0) {
-            mensagem.append("Cadastro da empresa não realizado. Nome do usuário da empresa está em branco");
+            mensagem_NOK.append("Cadastro da empresa não realizado. Nome do usuário da empresa está em branco");
         } else {
             if (empresa.getEmail().length() <= 0) {
-                mensagem.append("Cadastro da empresa não realizado. E-mail está em branco");
+                mensagem_NOK.append("Cadastro da empresa não realizado. E-mail está em branco");
             } else {
                 if (empresa.getSenha().length() < 3) {
-                    mensagem.append("Cadastro da empresa não realizado. Senha deve possuir pélo menos 3 caracteres");
+                    mensagem_NOK.append("Cadastro da empresa não realizado. Senha deve possuir pélo menos 3 caracteres");
                 } else {
-                    if (!ValidaCpfCnpj.isCNPJ(empresa.getCnpj()) || empresa.getCnpj().length() <= 0) {
-                        mensagem.append("Cadastro da empresa não realizado. CNPJ inválido");
+//                    if (!ValidaCpfCnpj.isCNPJ(empresa.getCnpj()) || empresa.getCnpj().length() <= 0) {
+                        if (empresa.getCnpj().length() <= 0) {
+                        mensagem_NOK.append("Cadastro da empresa não realizado. CNPJ inválido");
                     } else {
                         if (empresa.getRazaoSocial().length() <= 0) {
-                            mensagem.append("Cadastro da empresa não realizado. ´Razão social está em branco");
+                            mensagem_NOK.append("Cadastro da empresa não realizado. ´Razão social está em branco");
                         }
                     }
                 }
             }
         }
-        if (mensagem.length() == 0) {
+        if (mensagem_NOK.length() == 0) {
             Response response = client
                     .target(URL + "/empresa")
                     .request(MediaType.APPLICATION_JSON)
@@ -47,19 +48,19 @@ public class CadastroEmpresaService {
                 Erro erro = response.readEntity(Erro.class);
                 if (erro.getErrors() != null && !erro.getErrors().isEmpty()) {
                     for (ErroValidacao erroValidacao : erro.getErrors()) {
-                        mensagem.append(" | ").append(erroValidacao.getDefaultMessage());
+                        mensagem_NOK.append(" | ").append(erroValidacao.getDefaultMessage());
                     }
                 } else {
                     if (response.getStatus() == 400) {
-                        mensagem.append("Cadastro da empresa não realizado. Há duplicidade de CNPJ ou E-mail");
+                        mensagem_NOK.append("Cadastro da empresa não realizado. Há duplicidade de CNPJ ou E-mail");
                     } else {
-                        mensagem.append(erro.getMessage());
+                        mensagem_NOK.append(erro.getMessage());
                     }
                 }
-                throw new ErroCadastroException(mensagem.toString());
+                throw new ErroCadastroException(mensagem_NOK.toString());
             }
         } else {
-            throw new ErroCadastroException(mensagem.toString());
+            throw new ErroCadastroException(mensagem_NOK.toString());
         }
     }
 }

@@ -17,28 +17,29 @@ public class CadastroCandidatoService {
     private final Client client = ClientBuilder.newClient();
 
     public void cadastro(Candidato candidato) throws ErroCadastroException {
-        StringBuilder mensagem = new StringBuilder();
+        StringBuilder mensagem_NOK = new StringBuilder();
         if (candidato.getNome().length() <= 0) {
-            mensagem.append("Cadastro do candidato não realizado. Nome do candidato está em branco");
+            mensagem_NOK.append("Cadastro do candidato não realizado. Nome do candidato está em branco");
         } else {
             if (candidato.getEmail().length() <= 0) {
-                mensagem.append("Cadastro do candidato não realizado. E-mail está em branco");
+                mensagem_NOK.append("Cadastro do candidato não realizado. E-mail está em branco");
             } else {
                 if (candidato.getSenha().length() < 3) {
-                    mensagem.append("Cadastro do candidato não realizado. Senha deve possuir pélo menos 3 caracteres");
+                    mensagem_NOK.append("Cadastro do candidato não realizado. Senha deve possuir pélo menos 3 caracteres");
                 } else {
-                    if (!ValidaCpfCnpj.isCPF(candidato.getCpf()) || candidato.getCpf().length() <= 0) {
-                        mensagem.append("Cadastro do candidato não realizado. CPF inválido");
+//                    if (!ValidaCpfCnpj.isCPF(candidato.getCpf()) || candidato.getCpf().length() <= 0) {
+                        if (candidato.getCpf().length() <= 0) {
+                        mensagem_NOK.append("Cadastro do candidato não realizado. CPF inválido");
                     } else {
                         if (candidato.getTelefone().length() <= 0) {
-                            mensagem.append("Cadastro do candidato não realizado. ´Falta informação de telefone");
+                            mensagem_NOK.append("Cadastro do candidato não realizado. ´Falta informação de telefone");
                         }
                     }
                 }
             }
         }
 
-        if (mensagem.length() == 0) {
+        if (mensagem_NOK.length() == 0) {
             Response response = client
                     .target(URL + "/candidato")
                     .request(MediaType.APPLICATION_JSON)
@@ -48,19 +49,19 @@ public class CadastroCandidatoService {
                 Erro erro = response.readEntity(Erro.class);
                 if (erro.getErrors() != null && !erro.getErrors().isEmpty()) {
                     for (ErroValidacao erroValidacao : erro.getErrors()) {
-                        mensagem.append(" | ").append(erroValidacao.getDefaultMessage());
+                        mensagem_NOK.append(" | ").append(erroValidacao.getDefaultMessage());
                     }
                 } else {
                     if (response.getStatus() == 400) {
-                        mensagem.append("Cadastro do candidato não realizado. Há duplicidade de CPF ou E-mail");
+                        mensagem_NOK.append("Cadastro do candidato não realizado. Há duplicidade de CPF ou E-mail");
                     } else {
-                        mensagem.append(erro.getMessage());
+                        mensagem_NOK.append(erro.getMessage());
                     }
                 }
-                throw new ErroCadastroException(mensagem.toString());
+                throw new ErroCadastroException(mensagem_NOK.toString());
             }
         } else {
-            throw new ErroCadastroException(mensagem.toString());
+            throw new ErroCadastroException(mensagem_NOK.toString());
         }
     }
 }

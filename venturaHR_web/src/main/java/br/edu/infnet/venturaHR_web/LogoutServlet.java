@@ -21,7 +21,6 @@ public class LogoutServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp, HttpSession session, SessionStatus status) throws IOException, ServletException {
         status.setComplete();
         session.removeAttribute("user");
-        req.setAttribute("usuarioLogado", false);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/jsp/index.jsp");
         requestDispatcher.forward(req, resp);
     }

@@ -34,10 +34,10 @@
                         </form>
                     </li>
                     <li>
-                                <a href="${pageContext.request.contextPath}/jsp/vagas/cadastro.jsp">
-                                Inclui Vagas
-                                <span class="glyphicon glyphicon-lock"></span>
-                                </a>
+                        <a href="${pageContext.request.contextPath}/jsp/vagas/cadastro.jsp">
+                            Inclui Vagas
+                            <span class="glyphicon glyphicon-lock"></span>
+                        </a>
                     </li>
                 </c:if>
                 <c:if test="${user.tipoConta == 'CANDIDATO'}">
@@ -51,14 +51,6 @@
             </c:if>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <c:if test="${not empty user}">
-                <li>
-                    <a href="${pageContext.request.contextPath}/jsp/login.jsp">
-                        <span class="glyphicon glyphicon-log-in"></span>
-                        Login no VenturaHR
-                    </a>
-                </li>
-            </c:if>
             <c:if test="${empty user}">
                 <li>
                     <a href="${pageContext.request.contextPath}/jsp/login.jsp">
@@ -68,12 +60,12 @@
                 </li>
             </c:if>
             <c:if test="${not empty user}">
-                <li action="${pageContext.request.contextPath}/logout" method="GET">
-                    <a href="${pageContext.request.contextPath}/jsp/index.jsp">
+                <form action="${pageContext.request.contextPath}/logout" method="GET">
+                    <button type="submit" class="btn btn-link">
                         <span class="glyphicon glyphicon-log-out"></span>
                         Finalizar, ${user.nome}!
-                    </a>
-                </li>
+                    </button>
+                </form>
             </c:if>
         </ul>
     </div>

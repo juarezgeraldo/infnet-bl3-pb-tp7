@@ -32,7 +32,7 @@ public class CadastroCandidatoServlet extends HttpServlet {
         }
         catch (ResponseStatusException | ErroCadastroException ex){
             req.setAttribute("mensagem_NOK", ex.getMessage());
-            req.setAttribute("user", candidato);
+            req.setAttribute("usuario", candidato);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/jsp/candidato/cadastro.jsp");
             requestDispatcher.forward(req, resp);
         }

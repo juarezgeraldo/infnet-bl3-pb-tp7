@@ -5,7 +5,6 @@
 		<c:import url="/jsp/header.jsp"></c:import>
 		<body>
 			<c:import url="/jsp/menu.jsp"></c:import>
-			${user}
 			<c:if test="${not empty mensagem_OK}">
 				<div class="alert alert-success">
 					<strong>Problema!</strong> ${mensagem_OK}

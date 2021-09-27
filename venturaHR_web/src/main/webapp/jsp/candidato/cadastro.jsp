@@ -19,27 +19,27 @@
 				<form action="${pageContext.request.contextPath}/cadastro-candidato" method="post" class="user">
 					<div class="form-group">
 						<label>Nome:</label>
-						<input type="text" class="form-control" placeholder="Entre com o nome do candidato" name="nome" value="${user.nome}">
+						<input type="text" class="form-control" placeholder="Entre com o nome do candidato" name="nome" value="${usuario.nome}">
 					</div>
 
 					<div class="form-group">
 						<label>E-mail:</label>
-						<input type="email" class="form-control" name="email" value="${user.email}">
+						<input type="email" class="form-control" name="email" value="${usuario.email}">
 					</div>
 
 					<div class="form-group">
 						<label>Senha:</label>
-						<input type="password" class="form-control" name="senha" value="${user.senha}">
+						<input type="password" class="form-control" name="senha" value="${usuario.senha}">
 					</div>
 
 					<div class="form-group">
 						<label>CPF:</label>
-						<input type="text" name="cpf" class="form-control" value="${user.cpf}">
+						<input type="text" name="cpf" class="form-control" value="${usuario.cpf}">
 					</div>
 
 					<div class="form-group">
 						<label>Telefone:</label>
-						<input type="text" class="form-control" name="telefone" value="${user.telefone}">
+						<input type="text" class="form-control" name="telefone" value="${usuario.telefone}">
 					</div>
 
 					<button type="submit" class="btn btn-default">Cadastrar</button>
